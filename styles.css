@@ -133,6 +133,16 @@ label {
   font-weight: 600;
 }
 
+.inline-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.inline-field span {
+  white-space: nowrap;
+}
+
 input,
 textarea,
 select {

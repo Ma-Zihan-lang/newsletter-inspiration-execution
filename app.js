@@ -331,7 +331,7 @@ function generateIdeas(newsletters, template) {
     const insight = `Open with the lesson from "${source.title}", then expand into one overlooked tactic, one real example, and one question the reader can answer in under two minutes.`;
     const cta = source.cta || "reply and tell me your take";
     const imagePrompt = `Editorial newsletter cover for "${topic}" with bold typography, high-contrast gradient, subtle email motifs, and a modern product-marketing style.`;
-    const draft = applyTemplate(template?.body || defaultTemplate.body, {
+    const draft = applyTemplate(template?.body ?? defaultTemplate.body, {
       topic,
       hook,
       insight,
