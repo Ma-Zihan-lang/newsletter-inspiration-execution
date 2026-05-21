@@ -251,7 +251,7 @@ details summary {
 
 @media (max-width: 720px) {
   .app-shell {
-    width: min(100% - 1rem, 100%);
+    width: calc(100% - 1rem);
     padding-top: 1rem;
   }
 
