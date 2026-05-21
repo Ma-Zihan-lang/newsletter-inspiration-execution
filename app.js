@@ -2,6 +2,8 @@ const STORAGE_KEYS = {
   newsletters: "newsletter-inspiration.newsletters",
   templates: "newsletter-inspiration.templates",
 };
+const REPLY_RATE_WEIGHT = 10;
+const MAX_POSITION_BONUS = 6;
 
 const defaultTemplate = {
   id: crypto.randomUUID(),
@@ -337,7 +339,7 @@ function generateIdeas(newsletters, template) {
       audience,
       imagePrompt,
     });
-    const score = source.replyRate * 10 + Math.max(0, 6 - index);
+    const score = source.replyRate * REPLY_RATE_WEIGHT + Math.max(0, MAX_POSITION_BONUS - index);
 
     return {
       topic,
@@ -417,7 +419,7 @@ function summarize(text, maxLength) {
 }
 
 function slugify(value) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
 function capitalize(value) {
