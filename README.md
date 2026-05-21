@@ -15,7 +15,7 @@ This repository now contains a lightweight static tool for newsletter teams who:
 
 ## How to use
 
-Open `/home/runner/work/newsletter-inspiration-execution/newsletter-inspiration-execution/index.html` in a browser.
+Open `index.html` in a browser from the project root directory.
 
 The app lets you:
 

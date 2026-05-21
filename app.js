@@ -360,13 +360,15 @@ function getSelectedTemplate() {
 }
 
 function getKeywords(text) {
-  return [...new Set(
-    text
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, " ")
-      .split(/\s+/)
-      .filter((token) => token.length > 3 && !stopWords.has(token))
-  )];
+  return Array.from(
+    new Set(
+      text
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, " ")
+        .split(/\s+/)
+        .filter((token) => token.length > 3 && !stopWords.has(token))
+    )
+  );
 }
 
 function applyTemplate(templateBody, data) {
