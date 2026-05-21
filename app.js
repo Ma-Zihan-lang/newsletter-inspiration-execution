@@ -434,7 +434,7 @@ function formatKeyword(value) {
   return capitalize(value.replace(/-/g, " "));
 }
 
-function deriveTopic(sourceTitle, audience, fallbackBuilder, primary, secondary) {
+function deriveTopic(sourceTitle, audience, topicBuilder, primary, secondary) {
   const lowerTitle = sourceTitle.toLowerCase();
 
   if (lowerTitle.includes("cta")) {
@@ -449,7 +449,7 @@ function deriveTopic(sourceTitle, audience, fallbackBuilder, primary, secondary)
     return `15-minute content system: a repeatable prompt for ${audience}`;
   }
 
-  return fallbackBuilder(primary, secondary, audience);
+  return topicBuilder(primary, secondary, audience);
 }
 
 function escapeHtml(value) {
