@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newsletter Inspiration Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero card">
+        <div>
+          <p class="eyebrow">Brevo newsletter workflow</p>
+          <h1>Newsletter Inspiration Studio</h1>
+          <p class="hero-copy">
+            Import previous newsletters, track reply rates, add reusable
+            templates, and generate new topics, drafts, and cover visuals in
+            one place.
+          </p>
+        </div>
+        <button id="seed-demo" class="secondary-button">Load sample data</button>
+      </section>
+
+      <section class="grid-layout">
+        <article class="card stack">
+          <div>
+            <h2>1. Add previous newsletters</h2>
+            <p class="muted">
+              Paste an old newsletter and let the extractor pull the subject
+              line and summary for you.
+            </p>
+          </div>
+
+          <form id="newsletter-form" class="stack">
+            <label>
+              <span>Raw newsletter content</span>
+              <textarea
+                id="raw-newsletter"
+                rows="8"
+                placeholder="Subject: How founders keep newsletters interesting&#10;&#10;This week we tested..."
+              ></textarea>
+            </label>
+
+            <div class="two-column">
+              <label>
+                <span>Subject / topic</span>
+                <input id="newsletter-title" type="text" placeholder="AI lessons from 12 launches" />
+              </label>
+              <label>
+                <span>Reply rate</span>
+                <input id="newsletter-reply-rate" type="number" min="0" max="100" step="0.1" value="5.0" />
+              </label>
+            </div>
+
+            <div class="two-column">
+              <label>
+                <span>Audience</span>
+                <input id="newsletter-audience" type="text" placeholder="B2B SaaS founders" />
+              </label>
+              <label>
+                <span>Call to action</span>
+                <input id="newsletter-cta" type="text" placeholder="Reply with your biggest blocker" />
+              </label>
+            </div>
+
+            <label>
+              <span>Newsletter body / notes</span>
+              <textarea
+                id="newsletter-body"
+                rows="6"
+                placeholder="Paste or refine the body that should influence future brainstorming..."
+              ></textarea>
+            </label>
+
+            <div class="button-row">
+              <button type="button" id="extract-newsletter" class="secondary-button">Extract from raw text</button>
+              <button type="submit">Save newsletter</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="card stack">
+          <div>
+            <h2>2. Add drafting templates</h2>
+            <p class="muted">
+              Use placeholders like
+              <code>{{topic}}</code>, <code>{{hook}}</code>,
+              <code>{{insight}}</code>, <code>{{cta}}</code>,
+              <code>{{audience}}</code>, and <code>{{imagePrompt}}</code>.
+            </p>
+          </div>
+
+          <form id="template-form" class="stack">
+            <label>
+              <span>Template name</span>
+              <input id="template-name" type="text" placeholder="Founder story template" />
+            </label>
+            <label>
+              <span>Template body</span>
+              <textarea
+                id="template-body"
+                rows="8"
+                placeholder="Subject: {{topic}}&#10;&#10;Hi {{audience}},&#10;&#10;{{hook}}&#10;&#10;{{insight}}&#10;&#10;{{cta}}"
+              ></textarea>
+            </label>
+            <button type="submit">Save template</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="grid-layout">
+        <article class="card stack">
+          <div class="section-heading">
+            <div>
+              <h2>Newsletter performance library</h2>
+              <p class="muted">High reply-rate topics receive more weight in new ideas.</p>
+            </div>
+            <span id="newsletter-count" class="pill">0 saved</span>
+          </div>
+          <div id="newsletter-list" class="item-list empty-state">
+            Add your first newsletter to start generating ideas.
+          </div>
+        </article>
+
+        <article class="card stack">
+          <div class="section-heading">
+            <div>
+              <h2>Template library</h2>
+              <p class="muted">Pick any saved template when generating a draft.</p>
+            </div>
+            <span id="template-count" class="pill">0 saved</span>
+          </div>
+          <div id="template-list" class="item-list empty-state">
+            No templates saved yet.
+          </div>
+        </article>
+      </section>
+
+      <section class="card stack">
+        <div class="section-heading">
+          <div>
+            <h2>3. Generate new topics and draft autonomously</h2>
+            <p class="muted">
+              The generator scores previous newsletters by reply rate, extracts
+              repeating themes, and proposes fresh angles with draft and image
+              assets.
+            </p>
+          </div>
+          <div class="button-row">
+            <label class="inline-field">
+              <span>Draft template</span>
+              <select id="draft-template-picker"></select>
+            </label>
+            <button id="generate-ideas">Generate ideas</button>
+          </div>
+        </div>
+        <div id="idea-list" class="idea-grid empty-state">
+          Add at least one newsletter to generate inspiration.
+        </div>
+      </section>
+    </main>
+
+    <template id="newsletter-item-template">
+      <article class="list-card">
+        <div class="list-card-header">
+          <h3 class="item-title"></h3>
+          <span class="pill performance-pill"></span>
+        </div>
+        <p class="item-meta"></p>
+        <p class="item-body"></p>
+      </article>
+    </template>
+
+    <template id="template-item-template">
+      <article class="list-card">
+        <h3 class="item-title"></h3>
+        <pre class="template-preview"></pre>
+      </article>
+    </template>
+
+    <template id="idea-template">
+      <article class="idea-card">
+        <div class="list-card-header">
+          <h3 class="idea-title"></h3>
+          <span class="pill idea-score"></span>
+        </div>
+        <p class="idea-hook"></p>
+        <ul class="idea-details"></ul>
+        <details>
+          <summary>Draft</summary>
+          <pre class="draft-output"></pre>
+        </details>
+        <details>
+          <summary>Image suggestion</summary>
+          <p class="image-prompt"></p>
+          <img class="image-preview" alt="" />
+          <a class="download-link" download="newsletter-cover.svg">Download SVG cover</a>
+        </details>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
